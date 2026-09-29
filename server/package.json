@@ -1,0 +1,37 @@
+{
+  "name": "support-assistant-server",
+  "version": "1.0.0",
+  "description": "Backend API, Reliable LLM Layer, Hybrid RAG, and LangGraph HITL Workflow",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "test": "vitest run",
+    "test:llm": "vitest run tests/llm",
+    "test:retrieval": "vitest run tests/retrieval",
+    "test:workflow": "vitest run tests/workflow",
+    "eval": "tsx src/modules/evaluation/evalService.ts"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.0",
+    "@langchain/core": "^0.3.40",
+    "@langchain/langgraph": "^0.2.53",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongodb": "^6.13.0",
+    "mongodb-memory-server": "^10.1.4",
+    "mongoose": "^8.12.1",
+    "openai": "^4.86.1",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.13.8",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.7"
+  }
+}

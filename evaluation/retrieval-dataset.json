@@ -1,0 +1,170 @@
+[
+  {
+    "id": "q1",
+    "question": "How many days of paid annual leave do full-time employees receive?",
+    "expectedChunkId": "leave-policy-chunk-1",
+    "category": "leave"
+  },
+  {
+    "id": "q2",
+    "question": "How much advance notice is required when requesting more than 3 consecutive leave days?",
+    "expectedChunkId": "leave-policy-chunk-2",
+    "category": "leave"
+  },
+  {
+    "id": "q3",
+    "question": "How many unused vacation days can be carried over into next year, and what is the deadline?",
+    "expectedChunkId": "leave-policy-chunk-3",
+    "category": "leave"
+  },
+  {
+    "id": "q4",
+    "question": "When is a medical certificate required for sick leave?",
+    "expectedChunkId": "leave-policy-chunk-4",
+    "category": "leave"
+  },
+  {
+    "id": "q5",
+    "question": "How many days of bereavement leave are granted for immediate family members?",
+    "expectedChunkId": "leave-policy-chunk-5",
+    "category": "leave"
+  },
+  {
+    "id": "q6",
+    "question": "How many days per week are employees expected to work in the office under the hybrid policy?",
+    "expectedChunkId": "remote-work-policy-chunk-1",
+    "category": "remote_work"
+  },
+  {
+    "id": "q7",
+    "question": "What are the company's mandatory core working hours for team meetings?",
+    "expectedChunkId": "remote-work-policy-chunk-2",
+    "category": "remote_work"
+  },
+  {
+    "id": "q8",
+    "question": "What is the home office ergonomic setup stipend amount for new remote employees?",
+    "expectedChunkId": "remote-work-policy-chunk-3",
+    "category": "remote_work"
+  },
+  {
+    "id": "q9",
+    "question": "How much can remote employees claim monthly for internet reimbursement?",
+    "expectedChunkId": "remote-work-policy-chunk-4",
+    "category": "remote_work"
+  },
+  {
+    "id": "q10",
+    "question": "Can I work remotely from another country, and for how many days per year?",
+    "expectedChunkId": "remote-work-policy-chunk-5",
+    "category": "remote_work"
+  },
+  {
+    "id": "q11",
+    "question": "What are the rules for booking business class on international flights?",
+    "expectedChunkId": "travel-expense-policy-chunk-1",
+    "category": "travel"
+  },
+  {
+    "id": "q12",
+    "question": "What is the daily per diem meal allowance cap in major hubs like New York or San Francisco?",
+    "expectedChunkId": "travel-expense-policy-chunk-2",
+    "category": "travel"
+  },
+  {
+    "id": "q13",
+    "question": "What is the maximum nightly hotel rate allowed without director pre-approval?",
+    "expectedChunkId": "travel-expense-policy-chunk-3",
+    "category": "travel"
+  },
+  {
+    "id": "q14",
+    "question": "Within how many days must travel expense reports and itemized receipts be submitted?",
+    "expectedChunkId": "travel-expense-policy-chunk-4",
+    "category": "travel"
+  },
+  {
+    "id": "q15",
+    "question": "What percentage of 401(k) retirement contributions does the company match?",
+    "expectedChunkId": "employee-benefits-chunk-2",
+    "category": "benefits"
+  },
+  {
+    "id": "q16",
+    "question": "How much is the annual fitness and gym reimbursement allowance?",
+    "expectedChunkId": "employee-benefits-chunk-3",
+    "category": "benefits"
+  },
+  {
+    "id": "q17",
+    "question": "What is the annual employee budget for professional training courses and certifications?",
+    "expectedChunkId": "employee-benefits-chunk-4",
+    "category": "benefits"
+  },
+  {
+    "id": "q18",
+    "question": "How many weeks of fully paid leave do primary caregivers receive for a new child?",
+    "expectedChunkId": "parental-leave-chunk-1",
+    "category": "parental"
+  },
+  {
+    "id": "q19",
+    "question": "What is the duration of secondary caregiver paid bonding leave?",
+    "expectedChunkId": "parental-leave-chunk-2",
+    "category": "parental"
+  },
+  {
+    "id": "q20",
+    "question": "What is the hardware refresh cycle for company laptops and workstations?",
+    "expectedChunkId": "equipment-byod-policy-chunk-1",
+    "category": "equipment"
+  },
+  {
+    "id": "q21",
+    "question": "How quickly must lost or stolen company equipment be reported to IT security?",
+    "expectedChunkId": "equipment-byod-policy-chunk-3",
+    "category": "equipment"
+  },
+  {
+    "id": "q22",
+    "question": "What is the legal SLA for notifying regulatory authorities of a customer data security breach under GDPR?",
+    "expectedChunkId": "data-privacy-gdpr-chunk-2",
+    "category": "security"
+  },
+  {
+    "id": "q23",
+    "question": "How long are customer transaction logs retained before scheduled purging?",
+    "expectedChunkId": "data-privacy-gdpr-chunk-3",
+    "category": "security"
+  },
+  {
+    "id": "q24",
+    "question": "What performance rating is required across two cycles to be eligible for promotion?",
+    "expectedChunkId": "performance-review-chunk-3",
+    "category": "performance"
+  },
+  {
+    "id": "q25",
+    "question": "What is the severance formula for full-time employees affected by an involuntary layoff?",
+    "expectedChunkId": "severance-offboarding-chunk-2",
+    "category": "severance"
+  },
+  {
+    "id": "q26",
+    "question": "Within how many days must all company laptops and keycards be returned after termination?",
+    "expectedChunkId": "severance-offboarding-chunk-3",
+    "category": "severance"
+  },
+  {
+    "id": "q27",
+    "question": "What is the anonymous whistleblower telephone hotline number?",
+    "expectedChunkId": "whistleblower-policy-chunk-2",
+    "category": "ethics"
+  },
+  {
+    "id": "q28",
+    "question": "Within what timeframe must security incidents like phishing or credential leaks be reported?",
+    "expectedChunkId": "security-incident-policy-chunk-2",
+    "category": "security"
+  }
+]

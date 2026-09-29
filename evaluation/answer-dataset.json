@@ -1,0 +1,177 @@
+[
+  {
+    "id": "eval-1",
+    "question": "How many days of paid annual leave do full-time employees receive?",
+    "expectedFacts": ["25 days", "2.08"],
+    "expectedChunkId": "leave-policy-chunk-1",
+    "groundTruth": "Full-time employees receive 25 days of paid annual leave per year, accrued at 2.08 days per month."
+  },
+  {
+    "id": "eval-2",
+    "question": "How much advance notice is required for taking more than 3 consecutive leave days?",
+    "expectedFacts": ["2 weeks", "3 consecutive"],
+    "expectedChunkId": "leave-policy-chunk-2",
+    "groundTruth": "Leave requests exceeding 3 consecutive business days must be submitted at least 2 weeks in advance."
+  },
+  {
+    "id": "eval-3",
+    "question": "How many unused annual leave days can be carried over and by what date must they be used?",
+    "expectedFacts": ["5", "March 31"],
+    "expectedChunkId": "leave-policy-chunk-3",
+    "groundTruth": "Employees may carry over up to 5 days, which must be used before March 31st."
+  },
+  {
+    "id": "eval-4",
+    "question": "When is an employee required to submit a doctor's certificate for sick leave?",
+    "expectedFacts": ["3 consecutive", "medical certificate"],
+    "expectedChunkId": "leave-policy-chunk-4",
+    "groundTruth": "A medical certificate is required if sick leave extends beyond 3 consecutive business days."
+  },
+  {
+    "id": "eval-5",
+    "question": "How many days of compassionate leave are allowed for immediate family loss?",
+    "expectedFacts": ["5", "immediate family"],
+    "expectedChunkId": "leave-policy-chunk-5",
+    "groundTruth": "Employees are eligible for up to 5 consecutive paid business days for immediate family members."
+  },
+  {
+    "id": "eval-6",
+    "question": "What is the minimum number of days employees must work in the office per week?",
+    "expectedFacts": ["2 days", "hybrid"],
+    "expectedChunkId": "remote-work-policy-chunk-1",
+    "groundTruth": "Employees are expected to work from an authorized company office a minimum of 2 days per week."
+  },
+  {
+    "id": "eval-7",
+    "question": "What are the company's designated core collaboration hours?",
+    "expectedFacts": ["10:00 AM", "4:00 PM"],
+    "expectedChunkId": "remote-work-policy-chunk-2",
+    "groundTruth": "Core working hours for synchronous collaboration are 10:00 AM to 4:00 PM local office time."
+  },
+  {
+    "id": "eval-8",
+    "question": "What is the dollar amount of the home office setup stipend for new hires?",
+    "expectedFacts": ["$800", "probationary"],
+    "expectedChunkId": "remote-work-policy-chunk-3",
+    "groundTruth": "New full-time remote or hybrid employees receive a one-time ergonomic stipend of up to $800."
+  },
+  {
+    "id": "eval-9",
+    "question": "What is the monthly reimbursement allowance for home internet service?",
+    "expectedFacts": ["$60", "internet"],
+    "expectedChunkId": "remote-work-policy-chunk-4",
+    "groundTruth": "Employees working remotely at least 2 days per week can claim up to $60 per month for internet."
+  },
+  {
+    "id": "eval-10",
+    "question": "Can I work remotely from outside my home country, and for how long?",
+    "expectedFacts": ["30 business days", "international"],
+    "expectedChunkId": "remote-work-policy-chunk-5",
+    "groundTruth": "Employees may work remotely from an approved international country for up to 30 business days per year."
+  },
+  {
+    "id": "eval-11",
+    "question": "When can business class or premium economy be booked for company travel?",
+    "expectedFacts": ["6", "VP"],
+    "expectedChunkId": "travel-expense-policy-chunk-1",
+    "groundTruth": "Flights exceeding 6 continuous hours qualify for Premium Economy or Business Class with prior VP approval."
+  },
+  {
+    "id": "eval-12",
+    "question": "What is the daily per diem meal allowance limit in high-cost cities like San Francisco or New York?",
+    "expectedFacts": ["$85"],
+    "expectedChunkId": "travel-expense-policy-chunk-2",
+    "groundTruth": "The per diem meal allowance is $85 USD in major metropolitan hubs."
+  },
+  {
+    "id": "eval-13",
+    "question": "What is the maximum nightly hotel rate without requiring director approval?",
+    "expectedFacts": ["$220"],
+    "expectedChunkId": "travel-expense-policy-chunk-3",
+    "groundTruth": "The nightly hotel room rate cap is $220 USD excluding local taxes."
+  },
+  {
+    "id": "eval-14",
+    "question": "How long after travel must expenses and itemized receipts be submitted?",
+    "expectedFacts": ["30", "receipts"],
+    "expectedChunkId": "travel-expense-policy-chunk-4",
+    "groundTruth": "Expense claims must be submitted within 30 calendar days with itemized receipts for items $25 or more."
+  },
+  {
+    "id": "eval-15",
+    "question": "How does the company 401(k) match work?",
+    "expectedFacts": ["100%", "4%", "50%"],
+    "expectedChunkId": "employee-benefits-chunk-2",
+    "groundTruth": "The company matches 100% on the first 4% of salary, and 50% on the next 2% of salary."
+  },
+  {
+    "id": "eval-16",
+    "question": "How much can employees be reimbursed each year for gym or fitness expenses?",
+    "expectedFacts": ["$750", "wellness"],
+    "expectedChunkId": "employee-benefits-chunk-3",
+    "groundTruth": "Employees may claim up to $750 annually for qualified fitness and wellness expenses."
+  },
+  {
+    "id": "eval-17",
+    "question": "What is the annual education and professional development budget?",
+    "expectedFacts": ["$1,500"],
+    "expectedChunkId": "employee-benefits-chunk-4",
+    "groundTruth": "The annual professional development budget is $1,500 USD for courses and certifications."
+  },
+  {
+    "id": "eval-18",
+    "question": "How many weeks of paid leave do primary caregivers get for childbirth or adoption?",
+    "expectedFacts": ["16 weeks", "primary"],
+    "expectedChunkId": "parental-leave-chunk-1",
+    "groundTruth": "Primary caregivers receive 16 weeks of 100% fully paid leave."
+  },
+  {
+    "id": "eval-19",
+    "question": "How many weeks of bonding leave are provided for secondary caregivers?",
+    "expectedFacts": ["8 weeks"],
+    "expectedChunkId": "parental-leave-chunk-2",
+    "groundTruth": "Secondary caregivers are entitled to 8 weeks of fully paid bonding leave."
+  },
+  {
+    "id": "eval-20",
+    "question": "How often are company laptops refreshed?",
+    "expectedFacts": ["36 months", "refresh"],
+    "expectedChunkId": "equipment-byod-policy-chunk-1",
+    "groundTruth": "Company laptops have a mandatory refresh cycle every 36 months of active service."
+  },
+  {
+    "id": "eval-21",
+    "question": "Within what timeframe must lost or stolen company laptops be reported?",
+    "expectedFacts": ["2 hours", "security"],
+    "expectedChunkId": "equipment-byod-policy-chunk-3",
+    "groundTruth": "Lost or stolen equipment must be reported to IT security within 2 hours of discovery."
+  },
+  {
+    "id": "eval-22",
+    "question": "Under GDPR, within how many hours must regulatory authorities be informed of a data breach?",
+    "expectedFacts": ["72 hours", "breach"],
+    "expectedChunkId": "data-privacy-gdpr-chunk-2",
+    "groundTruth": "Confirmed or suspected security breaches must be reported within 72 hours under GDPR."
+  },
+  {
+    "id": "eval-23",
+    "question": "How long are customer transaction records retained before being purged?",
+    "expectedFacts": ["7 years"],
+    "expectedChunkId": "data-privacy-gdpr-chunk-3",
+    "groundTruth": "Customer transaction logs are retained for 7 years in compliance with tax regulations."
+  },
+  {
+    "id": "eval-24",
+    "question": "What rating must an employee maintain to be eligible for promotion?",
+    "expectedFacts": ["Level 4", "consecutive"],
+    "expectedChunkId": "performance-review-chunk-3",
+    "groundTruth": "Promotion requires maintaining Level 4 or higher across at least two consecutive performance review cycles."
+  },
+  {
+    "id": "eval-25",
+    "question": "What is the severance formula for full-time employees in a restructuring?",
+    "expectedFacts": ["2 weeks", "4 weeks"],
+    "expectedChunkId": "severance-offboarding-chunk-2",
+    "groundTruth": "Severance is 2 weeks of base pay per year of service, with a minimum payout of 4 weeks."
+  }
+]

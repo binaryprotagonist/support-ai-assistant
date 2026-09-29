@@ -1,0 +1,25 @@
+{
+  "name": "support-assistant",
+  "version": "1.0.0",
+  "description": "Production Support Assistant with Reliable LLM Layer, Hybrid RAG, LangGraph HITL, and Traced Evaluation",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=server\" \"npm run dev --workspace=client\"",
+    "dev:server": "npm run dev --workspace=server",
+    "dev:client": "npm run dev --workspace=client",
+    "build": "npm run build --workspace=server && npm run build --workspace=client",
+    "test": "npm run test --workspace=server",
+    "test:llm": "npm run test:llm --workspace=server",
+    "test:retrieval": "npm run test:retrieval --workspace=server",
+    "test:workflow": "npm run test:workflow --workspace=server",
+    "eval": "npm run eval --workspace=server"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0",
+    "concurrently": "^9.1.2"
+  }
+}
