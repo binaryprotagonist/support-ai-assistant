@@ -66,8 +66,8 @@ export async function startServer() {
   return server;
 }
 
-// Auto-run if executed directly as a standalone process (not during test or Vercel serverless function invocation)
-if (process.env.NODE_ENV !== "test" && !process.env.VERCEL) {
+// Auto-run if executed directly as a standalone process or Vercel Express service
+if (process.env.NODE_ENV !== "test") {
   startServer().catch((err) => {
     console.error("[Server] Fatal bootstrap error:", err);
     process.exit(1);
