@@ -27,12 +27,12 @@ export class LLMClient {
   private primaryCooldownUntil: number = 0;
 
   constructor(config: LLMClientConfig = {}) {
-    this.primaryProvider = config.primaryProvider || new GeminiProvider();
-    this.fallbackProvider = config.fallbackProvider || new GrokProvider();
+    this.primaryProvider = config.primaryProvider || new GrokProvider();
+    this.fallbackProvider = config.fallbackProvider || new GeminiProvider();
     this.budgetManager = new BudgetManager(config.budgetConfig);
-    this.maxRetries = config.maxRetries ?? 3;
-    this.baseDelayMs = config.baseDelayMs ?? 200;
-    this.maxDelayMs = config.maxDelayMs ?? 3000;
+    this.maxRetries = config.maxRetries ?? 2;
+    this.baseDelayMs = config.baseDelayMs ?? 150;
+    this.maxDelayMs = config.maxDelayMs ?? 2000;
   }
 
   public async generateStructured<T>(
@@ -188,6 +188,11 @@ export class LLMClient {
           primaryError.message?.includes("Quota exceeded") ||
           primaryError.message?.includes("503") ||
           primaryError.message?.includes("404") ||
+          primaryError.message?.includes("401") ||
+          primaryError.message?.includes("400") ||
+          primaryError.message?.includes("API key") ||
+          primaryError.message?.includes("invalid_api_key") ||
+          primaryError.message?.includes("Incorrect API key") ||
           primaryError.message?.includes("not found") ||
           primaryError.message?.includes("no longer available") ||
           primaryError.message?.includes("free_tier_requests")

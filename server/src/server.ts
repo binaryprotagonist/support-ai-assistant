@@ -58,9 +58,9 @@ app.use(errorHandler);
 export async function startServer() {
   await connectDatabase();
   const server = app.listen(env.PORT, () => {
-    console.log(`[Server] Support Assistant API listening on http://localhost:${env.PORT}`);
-    console.log(`[Server] Primary LLM: ${env.GEMINI_MODEL} (Gemini)`);
-    console.log(`[Server] Fallback LLM: ${env.GROK_MODEL} (Grok / xAI)`);
+    console.log(`[Server] Aegis AI API listening on http://localhost:${env.PORT}`);
+    console.log(`[Server] Primary LLM: ${env.GROK_MODEL} (Grok / xAI)`);
+    console.log(`[Server] Fallback LLM: ${env.GEMINI_MODEL} (Gemini)`);
     console.log(`[Server] Started at url : http://localhost:${env.PORT}  ${new Date()}`);
   });
   return server;

@@ -66,7 +66,29 @@ export class PersistentDurableSaver extends BaseCheckpointSaver {
     const threadId = config.configurable?.thread_id;
     if (!threadId) return undefined;
 
-    // 1. Try MongoDB if connected
+    // 1. Fast-path Durable Disk File (sub-millisecond local read)
+    const filePath = this.getFilePath(threadId);
+    if (fs.existsSync(filePath)) {
+      try {
+        const raw = fs.readFileSync(filePath, "utf-8");
+        const data = JSON.parse(raw);
+        if (!config.configurable?.checkpoint_id || data.checkpointId === config.configurable.checkpoint_id) {
+          return {
+            config,
+            checkpoint: data.checkpoint,
+            metadata: data.metadata,
+            parentConfig: data.parentCheckpointId
+              ? { configurable: { thread_id: threadId, checkpoint_id: data.parentCheckpointId } }
+              : undefined,
+            pendingWrites: data.writes || []
+          };
+        }
+      } catch (err: any) {
+        console.warn("[PersistentDurableSaver] Error reading disk checkpoint:", err.message);
+      }
+    }
+
+    // 2. Try MongoDB if connected
     if (mongoose.connection.readyState === 1) {
       try {
         const query: any = { threadId };
@@ -90,26 +112,6 @@ export class PersistentDurableSaver extends BaseCheckpointSaver {
         }
       } catch (err: any) {
         console.warn("[PersistentDurableSaver] MongoDB getTuple fallback to disk:", err.message);
-      }
-    }
-
-    // 2. Durable Disk File Fallback
-    const filePath = this.getFilePath(threadId);
-    if (fs.existsSync(filePath)) {
-      try {
-        const raw = fs.readFileSync(filePath, "utf-8");
-        const data = JSON.parse(raw);
-        return {
-          config,
-          checkpoint: data.checkpoint,
-          metadata: data.metadata,
-          parentConfig: data.parentCheckpointId
-            ? { configurable: { thread_id: threadId, checkpoint_id: data.parentCheckpointId } }
-            : undefined,
-          pendingWrites: data.writes || []
-        };
-      } catch (err: any) {
-        console.warn("[PersistentDurableSaver] Error reading disk checkpoint:", err.message);
       }
     }
 
@@ -143,26 +145,7 @@ export class PersistentDurableSaver extends BaseCheckpointSaver {
     const checkpointId = checkpoint.id;
     const parentCheckpointId = config.configurable?.checkpoint_id;
 
-    // 1. Persist to MongoDB
-    if (mongoose.connection.readyState === 1) {
-      try {
-        await MongoCheckpoint.findOneAndUpdate(
-          { threadId, checkpointId },
-          {
-            threadId,
-            checkpointId,
-            parentCheckpointId,
-            checkpoint,
-            metadata
-          },
-          { upsert: true, new: true }
-        );
-      } catch (err: any) {
-        console.warn("[PersistentDurableSaver] MongoDB put error:", err.message);
-      }
-    }
-
-    // 2. Persist to durable disk storage
+    // 1. Persist to durable disk storage (instant, local)
     try {
       const filePath = this.getFilePath(threadId);
       const payload = {
@@ -176,6 +159,23 @@ export class PersistentDurableSaver extends BaseCheckpointSaver {
       fs.writeFileSync(filePath, JSON.stringify(payload, null, 2), "utf-8");
     } catch (err: any) {
       console.warn("[PersistentDurableSaver] Disk put error:", err.message);
+    }
+
+    // 2. Persist to MongoDB (non-blocking for fast graph execution)
+    if (mongoose.connection.readyState === 1) {
+      MongoCheckpoint.findOneAndUpdate(
+        { threadId, checkpointId },
+        {
+          threadId,
+          checkpointId,
+          parentCheckpointId,
+          checkpoint,
+          metadata
+        },
+        { upsert: true, new: true }
+      ).catch((err: any) => {
+        console.warn("[PersistentDurableSaver] MongoDB put error:", err.message);
+      });
     }
 
     return {

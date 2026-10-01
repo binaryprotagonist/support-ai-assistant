@@ -241,14 +241,14 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
   });
 
   return (
-    <div className="flex-1 h-screen flex flex-col bg-black text-zinc-100 overflow-hidden font-sans">
+    <div className="flex-1 min-w-0 h-full flex flex-col bg-canvas text-zinc-100 overflow-hidden font-sans">
       {/* Top Header */}
-      <header className="px-6 py-3 flex items-center justify-between border-b border-zinc-800 bg-black shrink-0">
+      <header className="px-6 py-3 flex items-center justify-between border-b border-edge bg-header shrink-0">
         <div className="flex items-center gap-3">
           <button
             onClick={onBackToChat}
             title="Return to Assistant Chat"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded border border-zinc-800 bg-zinc-950 hover:bg-zinc-900 text-xs font-medium text-zinc-300 hover:text-white transition duration-150"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-surface hover:bg-surface-hover text-xs font-medium text-zinc-300 hover:text-white transition duration-150 shadow-sm"
           >
             <ArrowLeft size={18} />
           </button>
@@ -266,7 +266,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
         <button
           onClick={loadAllData}
           disabled={loading}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded border border-zinc-800 bg-zinc-950 hover:bg-zinc-900 text-xs font-medium text-zinc-300 hover:text-white transition duration-150 disabled:opacity-40"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-surface hover:bg-surface-hover text-xs font-medium text-zinc-300 hover:text-white transition duration-150 disabled:opacity-40 shadow-sm"
         >
           <RefreshCw size={12} className={loading ? "animate-spin" : ""} />
           <span>Refresh</span>
@@ -274,13 +274,13 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
       </header>
 
       {/* Sub-Navigation Tabs */}
-      <div className="px-6 py-2 flex gap-2 border-b border-zinc-800 bg-black shrink-0">
+      <div className="px-6 py-2 flex gap-2 border-b border-edge bg-header shrink-0">
         <button
           onClick={() => setSubTab("overview")}
-          className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition duration-150 ${
+          className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition duration-150 ${
             subTab === "overview"
-              ? "bg-zinc-900 border border-zinc-700 text-white font-medium"
-              : "border border-transparent text-zinc-400 hover:text-zinc-200 hover:bg-zinc-950"
+              ? "bg-surface-elevated border border-white/[0.14] text-white font-medium shadow-sm"
+              : "border border-transparent text-zinc-400 hover:text-zinc-200 hover:bg-surface-hover"
           }`}
         >
           <BarChart3 size={13} />
@@ -289,10 +289,10 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
 
         <button
           onClick={() => setSubTab("runs")}
-          className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition duration-150 ${
+          className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition duration-150 ${
             subTab === "runs"
-              ? "bg-zinc-900 border border-zinc-700 text-white font-medium"
-              : "border border-transparent text-zinc-400 hover:text-zinc-200 hover:bg-zinc-950"
+              ? "bg-surface-elevated border border-white/[0.14] text-white font-medium shadow-sm"
+              : "border border-transparent text-zinc-400 hover:text-zinc-200 hover:bg-surface-hover"
           }`}
         >
           <ListFilter size={13} />
@@ -301,10 +301,10 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
 
         <button
           onClick={() => setSubTab("approvals")}
-          className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition duration-150 ${
+          className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition duration-150 ${
             subTab === "approvals"
-              ? "bg-zinc-900 border border-zinc-700 text-white font-medium"
-              : "border border-transparent text-zinc-400 hover:text-zinc-200 hover:bg-zinc-950"
+              ? "bg-surface-elevated border border-white/[0.14] text-white font-medium shadow-sm"
+              : "border border-transparent text-zinc-400 hover:text-zinc-200 hover:bg-surface-hover"
           }`}
         >
           <ShieldCheck size={13} />
@@ -320,10 +320,10 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
 
         <button
           onClick={() => setSubTab("documents")}
-          className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-medium transition duration-150 ${
+          className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition duration-150 ${
             subTab === "documents"
-              ? "bg-zinc-900 border border-zinc-700 text-white font-medium"
-              : "border border-transparent text-zinc-400 hover:text-zinc-200 hover:bg-zinc-950"
+              ? "bg-surface-elevated border border-white/[0.14] text-white font-medium shadow-sm"
+              : "border border-transparent text-zinc-400 hover:text-zinc-200 hover:bg-surface-hover"
           }`}
         >
           <FileText size={13} />
@@ -332,19 +332,19 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
       </div>
 
       {/* Main Content Body */}
-      <div className="flex-1 overflow-y-auto p-6 bg-black">
+      <div className="flex-1 overflow-y-auto p-6 bg-canvas">
         <div className="max-w-7xl mx-auto">
           {/* 1. OVERVIEW & EVALUATION */}
           {subTab === "overview" && (
             <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
               {/* Header Control & Mode Switcher */}
-              <div className="p-4 rounded border border-zinc-800 bg-zinc-950 flex justify-between items-center flex-wrap gap-4">
+              <div className="p-4 rounded-xl border border-edge bg-surface-card flex justify-between items-center flex-wrap gap-4 shadow-sm">
                 <div>
                   <div className="flex items-center gap-2.5 mb-1">
                     <h2 className="text-sm font-semibold text-white tracking-tight">
                       Quality, Groundedness & Reference Fidelity
                     </h2>
-                    <span className="text-xs font-medium px-2 py-0.5 rounded bg-zinc-900 border border-zinc-700 text-zinc-300">
+                    <span className="text-xs font-medium px-2 py-0.5 rounded-md bg-surface-elevated border border-white/[0.08] text-zinc-300">
                       {evalViewMode === "live" ? "Live Production Traffic" : "Offline Benchmark Suite"}
                     </span>
                   </div>
@@ -355,12 +355,12 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
 
                 <div className="flex items-center gap-3 flex-wrap">
                   {/* Mode Switcher */}
-                  <div className="p-1 bg-black border border-zinc-800 rounded flex gap-1">
+                  <div className="p-1 bg-surface-elevated border border-edge rounded-lg flex gap-1">
                     <button
                       onClick={() => setEvalViewMode("live")}
-                      className={`px-3 py-1.5 rounded text-xs font-medium transition duration-150 ${
+                      className={`px-3 py-1.5 rounded-md text-xs font-medium transition duration-150 ${
                         evalViewMode === "live"
-                          ? "bg-zinc-900 border border-zinc-700 text-white"
+                          ? "bg-surface border border-white/[0.12] text-white shadow-sm"
                           : "text-zinc-400 hover:text-zinc-200"
                       }`}
                     >
@@ -368,9 +368,9 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                     </button>
                     <button
                       onClick={() => setEvalViewMode("benchmark")}
-                      className={`px-3 py-1.5 rounded text-xs font-medium transition duration-150 ${
+                      className={`px-3 py-1.5 rounded-md text-xs font-medium transition duration-150 ${
                         evalViewMode === "benchmark"
-                          ? "bg-zinc-900 border border-zinc-700 text-white"
+                          ? "bg-surface border border-white/[0.12] text-white shadow-sm"
                           : "text-zinc-400 hover:text-zinc-200"
                       }`}
                     >
@@ -383,7 +383,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                     <button
                       onClick={handleRunLiveEval}
                       disabled={liveEvalRunning}
-                      className="px-3.5 py-1.5 rounded bg-white text-black hover:bg-zinc-200 border border-white font-medium text-xs flex items-center gap-2 transition duration-150 disabled:opacity-40"
+                      className="px-3.5 py-1.5 rounded-lg bg-white text-black hover:bg-zinc-200 border border-white font-medium text-xs flex items-center gap-2 transition duration-150 disabled:opacity-40 shadow-sm"
                     >
                       <RefreshCw size={12} className={liveEvalRunning ? "animate-spin" : ""} />
                       <span>{liveEvalRunning ? "Auditing Traffic..." : "Audit Live Traffic"}</span>
@@ -392,7 +392,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                     <button
                       onClick={handleRunEval}
                       disabled={evalRunning}
-                      className="px-3.5 py-1.5 rounded bg-white text-black hover:bg-zinc-200 border border-white font-medium text-xs flex items-center gap-2 transition duration-150 disabled:opacity-40"
+                      className="px-3.5 py-1.5 rounded-lg bg-white text-black hover:bg-zinc-200 border border-white font-medium text-xs flex items-center gap-2 transition duration-150 disabled:opacity-40 shadow-sm"
                     >
                       <Play size={12} />
                       <span>{evalRunning ? "Running Eval..." : "Re-run Benchmark"}</span>
@@ -406,7 +406,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                 <>
                   {/* Live Scoreboard Cards */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
-                    <div className="p-4 bg-zinc-950 border border-zinc-800 rounded hover:border-zinc-700 transition flex flex-col justify-between">
+                    <div className="p-4 bg-surface-card border border-edge hover:border-white/[0.12] rounded-xl transition flex flex-col justify-between shadow-sm">
                       <div className="text-xs font-medium text-zinc-400">Live Quality Composite</div>
                       <div className="text-2xl font-bold text-white tracking-tight my-1">
                         {(liveMetrics.compositeScore * 100).toFixed(1)}%
@@ -414,7 +414,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                       <div className="text-xs text-zinc-500">Target &ge; 75% across live users</div>
                     </div>
 
-                    <div className="p-4 bg-zinc-950 border border-zinc-800 rounded hover:border-zinc-700 transition flex flex-col justify-between">
+                    <div className="p-4 bg-surface-card border border-edge hover:border-white/[0.12] rounded-xl transition flex flex-col justify-between shadow-sm">
                       <div className="text-xs font-medium text-zinc-400">Policy Groundedness</div>
                       <div className="text-2xl font-bold text-white tracking-tight my-1">
                         {(liveMetrics.groundednessPct * 100).toFixed(0)}%
@@ -424,7 +424,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                       </div>
                     </div>
 
-                    <div className="p-4 bg-zinc-950 border border-zinc-800 rounded hover:border-zinc-700 transition flex flex-col justify-between">
+                    <div className="p-4 bg-surface-card border border-edge hover:border-white/[0.12] rounded-xl transition flex flex-col justify-between shadow-sm">
                       <div className="text-xs font-medium text-zinc-400">Reference Fidelity</div>
                       <div className="text-2xl font-bold text-white tracking-tight my-1">
                         {(liveMetrics.referenceFidelityPct * 100).toFixed(0)}%
@@ -434,7 +434,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                       </div>
                     </div>
 
-                    <div className="p-4 bg-zinc-950 border border-zinc-800 rounded hover:border-zinc-700 transition flex flex-col justify-between">
+                    <div className="p-4 bg-surface-card border border-edge hover:border-white/[0.12] rounded-xl transition flex flex-col justify-between shadow-sm">
                       <div className="text-xs font-medium text-zinc-400">First-Pass Approval</div>
                       <div className="text-2xl font-bold text-white tracking-tight my-1">
                         {(liveMetrics.firstPassApprovalPct * 100).toFixed(0)}%
@@ -442,7 +442,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                       <div className="text-xs text-zinc-500">Uncontested auto-answers</div>
                     </div>
 
-                    <div className="p-4 bg-zinc-950 border border-zinc-800 rounded hover:border-zinc-700 transition flex flex-col justify-between">
+                    <div className="p-4 bg-surface-card border border-edge hover:border-white/[0.12] rounded-xl transition flex flex-col justify-between shadow-sm">
                       <div className="text-xs font-medium text-zinc-400">P95 Latency & Cost</div>
                       <div className="text-2xl font-bold text-white tracking-tight my-1">
                         {liveMetrics.p95LatencyMs} ms
@@ -454,8 +454,8 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                   </div>
 
                   {/* Audited Live User Queries Table */}
-                  <div className="bg-zinc-950 border border-zinc-800 rounded overflow-hidden">
-                    <div className="p-4 border-b border-zinc-800 flex justify-between items-center flex-wrap gap-3">
+                  <div className="bg-surface-card border border-edge rounded-xl overflow-hidden shadow-sm">
+                    <div className="p-4 border-b border-edge flex justify-between items-center flex-wrap gap-3">
                       <div>
                         <h3 className="text-sm font-semibold text-white tracking-tight">
                           Audited Live User Inquiries & Reference Cross-Checks
@@ -469,40 +469,40 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                       <div className="flex gap-1.5 flex-wrap">
                         <button
                           onClick={() => setAuditFilter("all")}
-                          className={`px-3 py-1 rounded text-xs font-medium transition duration-150 ${
+                          className={`px-3 py-1 rounded-lg text-xs font-medium transition duration-150 ${
                             auditFilter === "all"
-                              ? "bg-white text-black font-semibold"
-                              : "bg-black border border-zinc-800 text-zinc-400 hover:text-white"
+                              ? "bg-white text-black font-semibold shadow-sm"
+                              : "bg-surface border border-white/[0.08] text-zinc-400 hover:text-white"
                           }`}
                         >
                           All ({liveAudits.length})
                         </button>
                         <button
                           onClick={() => setAuditFilter("grounded")}
-                          className={`px-3 py-1 rounded text-xs font-medium transition duration-150 ${
+                          className={`px-3 py-1 rounded-lg text-xs font-medium transition duration-150 ${
                             auditFilter === "grounded"
-                              ? "bg-white text-black font-semibold"
-                              : "bg-black border border-zinc-800 text-zinc-400 hover:text-white"
+                              ? "bg-white text-black font-semibold shadow-sm"
+                              : "bg-surface border border-white/[0.08] text-zinc-400 hover:text-white"
                           }`}
                         >
                           Grounded ({liveAudits.filter(a => a.isGrounded).length})
                         </button>
                         <button
                           onClick={() => setAuditFilter("matched")}
-                          className={`px-3 py-1 rounded text-xs font-medium transition duration-150 ${
+                          className={`px-3 py-1 rounded-lg text-xs font-medium transition duration-150 ${
                             auditFilter === "matched"
-                              ? "bg-white text-black font-semibold"
-                              : "bg-black border border-zinc-800 text-zinc-400 hover:text-white"
+                              ? "bg-white text-black font-semibold shadow-sm"
+                              : "bg-surface border border-white/[0.08] text-zinc-400 hover:text-white"
                           }`}
                         >
                           Matched Golden Ref ({liveAudits.filter(a => !!a.matchedReferenceId).length})
                         </button>
                         <button
                           onClick={() => setAuditFilter("flagged")}
-                          className={`px-3 py-1 rounded text-xs font-medium transition duration-150 ${
+                          className={`px-3 py-1 rounded-lg text-xs font-medium transition duration-150 ${
                             auditFilter === "flagged"
-                              ? "bg-white text-black font-semibold"
-                              : "bg-black border border-zinc-800 text-zinc-400 hover:text-white"
+                              ? "bg-white text-black font-semibold shadow-sm"
+                              : "bg-surface border border-white/[0.08] text-zinc-400 hover:text-white"
                           }`}
                         >
                           Review / Flagged ({liveAudits.filter(a => !a.isGrounded || a.approvalStatus === "flagged" || a.approvalStatus === "rejected").length})
@@ -513,7 +513,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                     <div className="overflow-x-auto">
                       <table className="w-full border-collapse text-xs text-left">
                         <thead>
-                          <tr className="border-b border-zinc-800 bg-black text-zinc-400 text-xs font-medium uppercase tracking-wider">
+                          <tr className="border-b border-edge bg-surface text-zinc-400 text-xs font-medium uppercase tracking-wider">
                             <th className="p-3">User Inquiries & Category</th>
                             <th className="p-3">Policy Groundedness</th>
                             <th className="p-3">Golden Ground-Truth Reference</th>
@@ -618,25 +618,25 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
 
                                   {/* Expanded Inspection Drawer */}
                                   {isExpanded && (
-                                    <tr className="border-b border-zinc-800 bg-zinc-950">
+                                    <tr className="border-b border-edge bg-surface">
                                       <td colSpan={6} className="p-4">
                                         <div className={`grid gap-4 ${item.matchedReferenceId ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1"}`}>
                                           {/* Panel 1: Live User Answer & Grounding Details */}
-                                          <div className="bg-black border border-zinc-800 rounded p-4 flex flex-col gap-2.5 font-sans">
-                                            <div className="flex justify-between items-center border-b border-zinc-800 pb-2">
+                                          <div className="bg-surface-elevated border border-white/[0.08] rounded-xl p-4 flex flex-col gap-2.5 font-sans shadow-sm">
+                                            <div className="flex justify-between items-center border-b border-edge pb-2">
                                               <span className="text-xs font-semibold text-zinc-300">
                                                 Live Assistant Answer
                                               </span>
-                                              <span className="text-xs font-medium px-2 py-0.5 rounded bg-zinc-900 border border-zinc-700 text-zinc-300">
+                                              <span className="text-xs font-medium px-2 py-0.5 rounded-md bg-surface border border-white/[0.08] text-zinc-300">
                                                 {item.isGrounded ? "Verified Grounded" : "Unverified Citation"}
                                               </span>
                                             </div>
 
-                                            <div className="text-xs leading-relaxed text-zinc-200 max-h-56 overflow-y-auto p-3 bg-zinc-950 rounded border border-zinc-850 font-sans">
+                                            <div className="text-xs leading-relaxed text-zinc-200 max-h-56 overflow-y-auto p-3 bg-surface-input rounded-lg border border-edge font-sans">
                                               {renderFormattedDraft(item.answerDraft || "No text draft available.")}
                                             </div>
 
-                                            <div className="text-xs text-zinc-400 border-t border-zinc-800 pt-2">
+                                            <div className="text-xs text-zinc-400 border-t border-edge pt-2">
                                               <strong className="text-zinc-300 font-medium">Grounding Rationale: </strong>
                                               {item.groundednessReason || "Groundedness audited against ingested policy manual chunk citations."}
                                             </div>
@@ -644,12 +644,12 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
 
                                           {/* Panel 2: Golden Ground-Truth Reference Comparison */}
                                           {item.matchedReferenceId ? (
-                                            <div className="bg-black border border-zinc-700 rounded p-4 flex flex-col gap-2.5 font-sans">
-                                              <div className="flex justify-between items-center border-b border-zinc-800 pb-2">
+                                            <div className="bg-surface-elevated border border-white/[0.08] rounded-xl p-4 flex flex-col gap-2.5 font-sans shadow-sm">
+                                              <div className="flex justify-between items-center border-b border-edge pb-2">
                                                 <span className="text-xs font-semibold text-white">
                                                   Golden Ground-Truth Reference (#{item.matchedReferenceId})
                                                 </span>
-                                                <span className="text-xs font-medium px-2 py-0.5 rounded bg-zinc-900 border border-zinc-700 text-white font-semibold">
+                                                <span className="text-xs font-medium px-2 py-0.5 rounded-md bg-surface border border-white/[0.08] text-white font-semibold">
                                                   {(item.referenceFidelityScore * 100).toFixed(1)}% Fidelity
                                                 </span>
                                               </div>
@@ -707,7 +707,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                 <>
                   {/* Scoreboard Cards */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
-                    <div className="p-4 bg-zinc-950 border border-zinc-800 rounded hover:border-zinc-700 transition flex flex-col justify-between">
+                    <div className="p-4 bg-surface-card border border-edge hover:border-white/[0.12] rounded-xl transition flex flex-col justify-between shadow-sm">
                       <div className="text-xs font-medium text-zinc-400">Benchmark Composite</div>
                       <div className="text-2xl font-bold text-white tracking-tight my-1">
                         {(compositeScore * 100).toFixed(1)}%
@@ -715,7 +715,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                       <div className="text-xs text-zinc-500">Target &ge; 80%</div>
                     </div>
 
-                    <div className="p-4 bg-zinc-950 border border-zinc-800 rounded hover:border-zinc-700 transition flex flex-col justify-between">
+                    <div className="p-4 bg-surface-card border border-edge hover:border-white/[0.12] rounded-xl transition flex flex-col justify-between shadow-sm">
                       <div className="text-xs font-medium text-zinc-400">Schema Validity</div>
                       <div className="text-2xl font-bold text-white tracking-tight my-1">
                         {(metrics.schemaValidityPct * 100).toFixed(0)}%
@@ -723,7 +723,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                       <div className="text-xs text-zinc-500">Zod structured format</div>
                     </div>
 
-                    <div className="p-4 bg-zinc-950 border border-zinc-800 rounded hover:border-zinc-700 transition flex flex-col justify-between">
+                    <div className="p-4 bg-surface-card border border-edge hover:border-white/[0.12] rounded-xl transition flex flex-col justify-between shadow-sm">
                       <div className="text-xs font-medium text-zinc-400">Benchmark Grounding</div>
                       <div className="text-2xl font-bold text-white tracking-tight my-1">
                         {(metrics.groundednessPct * 100).toFixed(0)}%
@@ -731,7 +731,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                       <div className="text-xs text-zinc-500">Verified policy citations</div>
                     </div>
 
-                    <div className="p-4 bg-zinc-950 border border-zinc-800 rounded hover:border-zinc-700 transition flex flex-col justify-between">
+                    <div className="p-4 bg-surface-card border border-edge hover:border-white/[0.12] rounded-xl transition flex flex-col justify-between shadow-sm">
                       <div className="text-xs font-medium text-zinc-400">P95 Latency</div>
                       <div className="text-2xl font-bold text-white tracking-tight my-1">
                         {metrics.p95LatencyMs} ms
@@ -739,7 +739,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                       <div className="text-xs text-zinc-500">Avg: {metrics.avgLatencyMs} ms</div>
                     </div>
 
-                    <div className="p-4 bg-zinc-950 border border-zinc-800 rounded hover:border-zinc-700 transition flex flex-col justify-between">
+                    <div className="p-4 bg-surface-card border border-edge hover:border-white/[0.12] rounded-xl transition flex flex-col justify-between shadow-sm">
                       <div className="text-xs font-medium text-zinc-400">Avg Cost / Query</div>
                       <div className="text-2xl font-bold text-white tracking-tight my-1">
                         ${metrics.avgCostPerRequestUsd.toFixed(5)}
@@ -749,7 +749,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                   </div>
 
                   {/* Retrieval Benchmark Lift Table */}
-                  <div className="bg-zinc-950 border border-zinc-800 rounded p-4">
+                  <div className="bg-surface-card border border-edge rounded-xl p-4 shadow-sm">
                     <div className="flex justify-between items-center mb-3">
                       <div>
                         <h3 className="text-sm font-semibold text-white tracking-tight">
@@ -764,7 +764,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                     <div className="overflow-x-auto">
                       <table className="w-full border-collapse text-xs text-left">
                         <thead>
-                          <tr className="border-b border-zinc-800 bg-black text-zinc-400 text-xs font-medium uppercase">
+                          <tr className="border-b border-edge bg-surface text-zinc-400 text-xs font-medium uppercase">
                             <th className="p-2.5">Configuration</th>
                             <th className="p-2.5">Recall@1</th>
                             <th className="p-2.5">Recall@3</th>
@@ -773,21 +773,21 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                           </tr>
                         </thead>
                         <tbody>
-                          <tr className="border-b border-zinc-850 text-zinc-400">
+                          <tr className="border-b border-edge text-zinc-400">
                             <td className="p-2.5 font-medium text-zinc-300">1. Naive Dense Baseline</td>
                             <td className="p-2.5 font-mono">60.7%</td>
                             <td className="p-2.5 font-mono">78.6%</td>
                             <td className="p-2.5 font-mono">85.7%</td>
                             <td className="p-2.5 font-mono">0.7065</td>
                           </tr>
-                          <tr className="border-b border-zinc-850 text-zinc-400">
+                          <tr className="border-b border-edge text-zinc-400">
                             <td className="p-2.5 font-medium text-zinc-300">2. Hybrid (Dense + BM25)</td>
                             <td className="p-2.5 font-mono">82.1%</td>
                             <td className="p-2.5 font-mono">96.4%</td>
                             <td className="p-2.5 font-mono">100.0%</td>
                             <td className="p-2.5 font-mono">0.8958</td>
                           </tr>
-                          <tr className="bg-zinc-900 border border-zinc-700 text-white font-semibold">
+                          <tr className="bg-surface-elevated border border-white/[0.12] text-white font-semibold">
                             <td className="p-2.5">3. Hybrid + Reranker (Active)</td>
                             <td className="p-2.5 font-mono">85.7% (+41.2%)</td>
                             <td className="p-2.5 font-mono">92.9%</td>
@@ -805,8 +805,8 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
 
           {/* 2. WORKFLOW RUNS */}
           {subTab === "runs" && (
-            <div className="bg-zinc-950 border border-zinc-800 rounded overflow-hidden">
-              <div className="p-4 border-b border-zinc-800">
+            <div className="bg-surface-card border border-edge rounded-xl overflow-hidden shadow-sm">
+              <div className="p-4 border-b border-edge">
                 <h3 className="text-sm font-semibold text-white tracking-tight">
                   Traced Workflow Runs ({runs.length})
                 </h3>
@@ -815,7 +815,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
               <div className="overflow-x-auto">
                 <table className="w-full border-collapse text-xs text-left">
                   <thead>
-                    <tr className="border-b border-zinc-800 bg-black text-zinc-400 text-xs font-medium uppercase tracking-wider">
+                    <tr className="border-b border-edge bg-surface text-zinc-400 text-xs font-medium uppercase tracking-wider">
                       <th className="p-3">Question</th>
                       <th className="p-3">Status</th>
                       <th className="p-3">Revisions</th>
@@ -833,12 +833,12 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                       </tr>
                     ) : (
                       runs.map((r) => (
-                        <tr key={r._id} className="border-b border-zinc-850 hover:bg-zinc-900/40 transition duration-150">
+                        <tr key={r._id} className="border-b border-edge hover:bg-surface-hover/60 transition duration-150">
                           <td className="p-3 max-w-xs truncate text-white font-medium">
                             {r.question}
                           </td>
                           <td className="p-3">
-                            <span className="px-2 py-0.5 rounded text-xs font-medium border border-zinc-700 bg-zinc-900 text-zinc-200">
+                            <span className="px-2 py-0.5 rounded-md text-xs font-medium border border-white/[0.08] bg-surface-elevated text-zinc-200">
                               {r.status}
                             </span>
                           </td>
@@ -872,15 +872,15 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                   </p>
                 </div>
                 {approvals.length > 0 && (
-                  <div className="text-xs font-medium px-2.5 py-1 rounded bg-zinc-900 text-zinc-200 border border-zinc-700 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                  <div className="text-xs font-medium px-2.5 py-1 rounded-md bg-surface-elevated text-zinc-200 border border-white/[0.08] flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                     <span>{approvals.length} draft{approvals.length > 1 ? "s" : ""} awaiting review</span>
                   </div>
                 )}
               </div>
 
               {approvals.length === 0 ? (
-                <div className="p-12 text-center bg-zinc-950 border border-zinc-800 rounded-md">
+                <div className="p-12 text-center bg-surface-card border border-edge rounded-xl shadow-sm">
                   <CheckCircle size={36} className="text-zinc-500 mx-auto mb-3" />
                   <div className="text-sm font-semibold text-white">
                     Queue is Clear
@@ -911,20 +911,20 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                   return (
                     <div
                       key={item._id}
-                      className="bg-zinc-950 border border-zinc-800 rounded-md p-5 flex flex-col gap-4 shadow-sm"
+                      className="bg-surface-card border border-edge rounded-xl p-5 flex flex-col gap-4 shadow-sm"
                     >
                       {/* Card Header Bar */}
-                      <div className="flex justify-between items-center border-b border-zinc-800 pb-3 flex-wrap gap-2">
+                      <div className="flex justify-between items-center border-b border-edge pb-3 flex-wrap gap-2">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-xs font-medium px-2.5 py-0.5 rounded bg-zinc-900 border border-zinc-700 text-zinc-200">
+                          <span className="text-xs font-medium px-2.5 py-0.5 rounded-md bg-surface-elevated border border-white/[0.08] text-zinc-200">
                             Awaiting Review
                           </span>
 
-                          <span className="text-xs font-medium px-2 py-0.5 rounded bg-black text-zinc-400 border border-zinc-800">
+                          <span className="text-xs font-medium px-2 py-0.5 rounded-md bg-surface text-zinc-400 border border-white/[0.08]">
                             Revision {item.revisionCount || 0} of 2
                           </span>
 
-                          <span className="text-xs px-2 py-0.5 rounded bg-black text-zinc-400 border border-zinc-800">
+                          <span className="text-xs px-2 py-0.5 rounded-md bg-surface text-zinc-400 border border-white/[0.08]">
                             Category: <strong className="text-zinc-200 font-semibold">{category}</strong>
                           </span>
                         </div>
@@ -939,7 +939,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                           <button
                             onClick={() => handleCopyThread(item.threadId)}
                             title="Copy Thread ID"
-                            className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-white text-xs font-medium transition-colors"
+                            className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface border border-white/[0.08] hover:border-white/[0.15] text-zinc-400 hover:text-white text-xs font-medium transition-colors"
                           >
                             {copiedThreadId === item.threadId ? (
                               <>
@@ -957,8 +957,8 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                       </div>
 
                       {/* Section 1: Original Employee Question */}
-                      <div className="bg-black border border-zinc-800 rounded-md p-3.5 flex gap-3 items-start">
-                        <div className="w-7 h-7 rounded border border-zinc-800 bg-zinc-900 flex items-center justify-center text-zinc-400 flex-shrink-0 mt-0.5">
+                      <div className="bg-surface-elevated border border-white/[0.08] rounded-xl p-4 flex gap-3 items-start shadow-sm">
+                        <div className="w-7 h-7 rounded-lg border border-white/[0.08] bg-surface flex items-center justify-center text-zinc-400 flex-shrink-0 mt-0.5">
                           <User size={14} />
                         </div>
                         <div className="flex-1">
@@ -972,8 +972,8 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                       </div>
 
                       {/* Section 2: AI Draft Response */}
-                      <div className="bg-black border border-zinc-800 border-l-2 border-l-white rounded-md p-4 flex flex-col gap-2.5">
-                        <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
+                      <div className="bg-surface-elevated border border-white/[0.08] border-l-2 border-l-white rounded-xl p-4 flex flex-col gap-2.5 shadow-sm">
+                        <div className="flex items-center justify-between border-b border-edge pb-2">
                           <div className="flex items-center gap-2 text-xs font-semibold text-zinc-200">
                             <Bot size={14} />
                             <span>Generated Draft Response</span>
@@ -990,7 +990,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
 
                       {/* Section 3: Retrieved Policy Citations / Sources */}
                       {item.citations && item.citations.length > 0 && (
-                        <div className="bg-black border border-zinc-800 rounded-md p-3.5 flex flex-col gap-2.5">
+                        <div className="bg-surface-elevated border border-white/[0.08] rounded-xl p-4 flex flex-col gap-2.5 shadow-sm">
                           <div className="flex items-center gap-2 text-xs font-semibold text-zinc-300">
                             <BookOpen size={13} className="text-zinc-400" />
                             <span>Retrieved Policy Grounding & Citations ({item.citations.length})</span>
@@ -1000,7 +1000,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                             {item.citations.map((cite, cIdx) => (
                               <div
                                 key={cIdx}
-                                className="flex flex-col gap-1 p-2.5 bg-zinc-950 rounded border border-zinc-800/80"
+                                className="flex flex-col gap-1 p-2.5 bg-surface-input rounded-lg border border-white/[0.06]"
                               >
                                 <div className="flex items-center gap-2">
                                   <span className="text-xs font-mono text-zinc-300 font-semibold">
@@ -1019,7 +1019,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                       )}
 
                       {/* Section 4: Reviewer Feedback & Actions */}
-                      <div className="bg-black border border-zinc-800 rounded-md p-4 flex flex-col gap-3">
+                      <div className="bg-surface-elevated border border-white/[0.08] rounded-xl p-4 flex flex-col gap-3 shadow-sm">
                         <div className="flex justify-between items-center">
                           <label className="text-xs font-semibold text-zinc-300 flex items-center gap-2">
                             <MessageSquare size={13} />
@@ -1035,7 +1035,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                           onChange={(e) => setFeedbackMap((prev) => ({ ...prev, [item.threadId]: e.target.value }))}
                           placeholder="Provide specific correction guidelines for the model (e.g. Ensure the 100% match on first 4% and 50% on next 2% is clearly stated, and explicitly mention immediate vesting)..."
                           rows={2}
-                          className="w-full p-2.5 bg-zinc-950 border border-zinc-800 focus:border-zinc-500 rounded text-xs font-sans text-zinc-200 outline-none resize-y placeholder:text-zinc-600 transition-colors"
+                          className="w-full p-2.5 bg-surface-input border border-edge focus:border-zinc-500 rounded-lg text-xs font-sans text-zinc-200 outline-none resize-y placeholder:text-zinc-500 transition-colors"
                         />
 
                         <div className="flex items-center justify-between flex-wrap gap-3 pt-1">
@@ -1047,7 +1047,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                             <button
                               onClick={() => handleReject(item.threadId)}
                               disabled={actionLoadingId === item.threadId}
-                              className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-medium border border-zinc-700 bg-zinc-900 text-zinc-300 hover:text-white hover:bg-zinc-800 rounded transition-colors disabled:opacity-50"
+                              className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-medium border border-white/[0.08] bg-surface text-zinc-300 hover:text-white hover:bg-surface-hover rounded-lg transition-colors disabled:opacity-50 shadow-sm"
                             >
                               <RotateCcw size={13} className={actionLoadingId === item.threadId ? "animate-spin" : ""} />
                               <span>Request Revision</span>
@@ -1056,7 +1056,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                             <button
                               onClick={() => handleApprove(item.threadId)}
                               disabled={actionLoadingId === item.threadId}
-                              className="flex items-center gap-1.5 px-4 py-1.5 text-xs font-medium bg-white text-black hover:bg-zinc-200 border border-white rounded transition-colors disabled:opacity-50"
+                              className="flex items-center gap-1.5 px-4 py-1.5 text-xs font-medium bg-white text-black hover:bg-zinc-200 border border-white rounded-lg transition-colors disabled:opacity-50 shadow-sm"
                             >
                               <Check size={14} />
                               <span>{actionLoadingId === item.threadId ? "Dispatching..." : "Approve & Send"}</span>
@@ -1073,8 +1073,8 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
 
           {/* 4. POLICY DOCUMENTS */}
           {subTab === "documents" && (
-            <div className="bg-zinc-950 border border-zinc-800 rounded-md overflow-hidden">
-              <div className="p-4 border-b border-zinc-800 flex justify-between items-center">
+            <div className="bg-surface-card border border-edge rounded-xl overflow-hidden shadow-sm">
+              <div className="p-4 border-b border-edge flex justify-between items-center">
                 <div>
                   <h3 className="text-sm font-semibold text-white tracking-tight">
                     Ingested Policy Manuals ({documents.length})
@@ -1088,7 +1088,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
-                    <tr className="border-b border-zinc-800 text-zinc-400 text-xs font-medium uppercase tracking-wider">
+                    <tr className="border-b border-edge bg-surface text-zinc-400 text-xs font-medium uppercase tracking-wider">
                       <th className="p-3">Policy Document</th>
                       <th className="p-3">Filename</th>
                       <th className="p-3">Category</th>
@@ -1098,7 +1098,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                   </thead>
                   <tbody>
                     {documents.map((doc) => (
-                      <tr key={doc._id} className="border-b border-zinc-800/60 hover:bg-zinc-900/40">
+                      <tr key={doc._id} className="border-b border-edge hover:bg-surface-hover/60 transition-colors">
                         <td className="p-3 font-medium text-zinc-200">
                           {doc.title}
                         </td>
@@ -1108,7 +1108,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onBackTo
                         <td className="p-3 text-zinc-400">{doc.category}</td>
                         <td className="p-3 font-mono text-zinc-300">{doc.chunkCount}</td>
                         <td className="p-3">
-                          <span className="px-2 py-0.5 rounded border border-zinc-700 bg-zinc-900 text-zinc-300 text-xs font-medium">
+                          <span className="px-2 py-0.5 rounded-md border border-white/[0.08] bg-surface-elevated text-zinc-300 text-xs font-medium">
                             Indexed
                           </span>
                         </td>

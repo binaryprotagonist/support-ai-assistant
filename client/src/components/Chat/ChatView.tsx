@@ -134,12 +134,23 @@ export const ChatView: React.FC<ChatViewProps> = ({
   const [actionLoadingId, setActionLoadingId] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({
+        top: scrollContainerRef.current.scrollHeight,
+        behavior: "smooth"
+      });
+    }
   }, [messages, isLoading]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollLeft = 0;
+    document.body.scrollLeft = 0;
+  }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -154,6 +165,7 @@ export const ChatView: React.FC<ChatViewProps> = ({
     setInputText("");
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
+      textareaRef.current.style.overflowY = "hidden";
     }
     onSendMessage(text);
   };
@@ -161,7 +173,9 @@ export const ChatView: React.FC<ChatViewProps> = ({
   const handleInputResize = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputText(e.target.value);
     e.target.style.height = "auto";
-    e.target.style.height = `${Math.min(e.target.scrollHeight, 160)}px`;
+    const nextHeight = Math.min(e.target.scrollHeight, 160);
+    e.target.style.height = `${nextHeight}px`;
+    e.target.style.overflowY = e.target.scrollHeight > 160 ? "auto" : "hidden";
   };
 
   const handleCopy = (id: string, text: string) => {
@@ -195,67 +209,55 @@ export const ChatView: React.FC<ChatViewProps> = ({
 
   const firstUserMessage = messages.find((m) => m.role === "user");
   const sessionMeta = getSessionTopic(activeTitle, firstUserMessage?.content);
-  const totalCitations = messages.reduce((acc, m) => acc + (m.citations?.length || 0), 0);
 
   return (
-    <div className="flex-1 h-screen flex flex-col bg-black text-zinc-100 overflow-hidden font-sans">
+    <div className="flex-1 min-w-0 h-full flex flex-col bg-canvas text-zinc-100 overflow-hidden font-sans">
       {/* Top Header Bar */}
-      <header className="px-6 py-3.5 border-b border-zinc-800 bg-black flex items-center justify-between shrink-0">
-        <div className="flex items-center gap-3 min-w-0">
-          <div className="w-8 h-8 rounded border border-zinc-800 bg-zinc-950 flex items-center justify-center text-zinc-300 flex-shrink-0">
-            <BookOpen size={14} />
+      <header className="px-5 py-3.5 border-b border-zinc-700/80 bg-sidebar flex items-center justify-between shrink-0 shadow-[0_12px_30px_rgba(0,0,0,0.4),0_4px_8px_rgba(0,0,0,0.4)] z-20 relative">
+        <div className="flex items-center gap-3.5 min-w-0">
+          <div className="w-9 h-9 rounded-xl border border-white/[0.14] bg-white/[0.06] flex items-center justify-center text-white flex-shrink-0 shadow-sm">
+            <BookOpen size={17} />
           </div>
           <div className="flex flex-col min-w-0">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-medium text-zinc-400">
+              <span className="px-2 py-0.5 rounded-md bg-white/[0.08] border border-white/[0.12] text-[10px] font-semibold text-zinc-300 uppercase tracking-wider">
                 {sessionMeta.category}
               </span>
-              <span className="text-zinc-600 text-xs">/</span>
+              <span className="text-zinc-500 text-xs">•</span>
               <span className="text-xs text-zinc-400 font-normal">
                 {messages.length > 0 ? `${messages.length} Messages` : "Active Consultation"}
               </span>
             </div>
-            <div className="text-sm font-semibold text-white truncate max-w-xl tracking-tight">
+            <div className="text-[15px] font-bold text-white truncate max-w-xl tracking-tight mt-0.5">
               {sessionMeta.topic}
             </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          {isLoading ? (
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-zinc-900 border border-zinc-700 text-zinc-200 text-xs font-medium">
-              <Loader2 size={12} className="animate-spin text-white" />
-              <span>Querying Hybrid Index...</span>
-            </div>
-          ) : (
-            <div className="hidden sm:flex items-center gap-2">
-              {totalCitations > 0 && (
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-zinc-950 border border-zinc-800 text-zinc-300 text-xs font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-white" />
-                  <span>{totalCitations} Citations Grounded</span>
-                </div>
-              )}
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-zinc-950 border border-zinc-800 text-zinc-400 text-xs font-medium">
-                <span>Hybrid RAG</span>
-                <span className="text-zinc-600">•</span>
-                <span className="text-zinc-300">Strict Grounding</span>
-              </div>
-            </div>
-          )}
+        {/* Right Header Status Badge */}
+        <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/[0.05] border border-white/[0.1] text-xs text-zinc-300 shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
+            <span className="text-[11px] font-medium text-zinc-300">Live Policy Engine</span>
+          </div>
         </div>
       </header>
 
       {/* Messages Scroll Area */}
-      <div className="flex-1 overflow-y-auto px-4 py-6 flex flex-col">
-        <div className="max-w-3xl w-full mx-auto flex flex-col gap-6">
+      <div className="relative flex-1 min-h-0 flex flex-col overflow-hidden bg-canvas">
+        {/* Subtle top fade overlay so messages don't harshly clip directly against the header border */}
+        <div className="absolute top-0 left-0 right-0 h-6 bg-gradient-to-b from-canvas via-canvas/80 to-transparent pointer-events-none z-10" />
+
+        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto px-4 pt-10 pb-8 flex flex-col scroll-smooth">
+          <div className="max-w-3xl w-full mx-auto flex flex-col gap-6 pt-5">
           {messages.length === 0 ? (
             /* Welcome / Starter View (Minimalist Monochrome Workstation) */
             <div className="pt-16 pb-8 text-center flex flex-col items-center">
-              <div className="w-10 h-10 rounded border border-zinc-700 bg-zinc-950 text-white font-bold text-sm flex items-center justify-center mb-5">
-                //
+              <div className="w-12 h-12 rounded-xl border border-white/[0.08] bg-surface-elevated flex items-center justify-center font-bold text-white text-xl mb-4 shadow-sm select-none">
+                A
               </div>
               <h1 className="text-2xl font-bold tracking-tight text-white mb-2">
-                Internal Policy Repository
+                Aegis AI Knowledge Base
               </h1>
               <p className="text-zinc-400 text-sm max-w-md mx-auto mb-8 leading-relaxed">
                 Authoritative queries against indexed HR, benefits, travel, and workplace compliance manuals.
@@ -267,7 +269,7 @@ export const ChatView: React.FC<ChatViewProps> = ({
                   <button
                     key={idx}
                     onClick={() => onSendMessage(item.query)}
-                    className="p-3.5 rounded border border-zinc-800 bg-zinc-950 hover:bg-zinc-900 hover:border-zinc-700 text-left transition duration-150 group"
+                    className="p-3.5 rounded-xl border border-white/[0.06] bg-surface-card hover:bg-surface-hover hover:border-white/[0.12] text-left transition duration-150 group shadow-sm"
                   >
                     <div className="text-sm font-semibold text-zinc-200 group-hover:text-white mb-1 flex items-center justify-between">
                       <span>{item.title}</span>
@@ -291,15 +293,15 @@ export const ChatView: React.FC<ChatViewProps> = ({
               >
                 {/* Sender label */}
                 <div className="text-xs font-medium text-zinc-400 px-1">
-                  {msg.role === "user" ? "Employee Request" : "Policy Assistant"}
+                  {msg.role === "user" ? "Employee Request" : "Aegis AI"}
                 </div>
 
                 {/* Message Body */}
                 <div
                   className={`text-sm leading-relaxed ${
                     msg.role === "user"
-                      ? "max-w-[80%] px-4 py-2.5 bg-zinc-900 border border-zinc-800 text-white rounded-md font-sans"
-                      : "w-full text-zinc-200 py-1"
+                      ? "max-w-[80%] px-4 py-2.5 bg-surface-bubble border border-zinc-700/80 text-white rounded-xl font-sans shadow-sm"
+                      : "w-full text-zinc-100 py-1"
                   }`}
                 >
                   {renderFormattedContent(msg.content)}
@@ -307,7 +309,7 @@ export const ChatView: React.FC<ChatViewProps> = ({
 
                 {/* Assistant Footer: Sources & Actions */}
                 {msg.role === "assistant" && (
-                  <div className="w-full flex flex-col gap-2 mt-1">
+                  <div className="w-full flex flex-col gap-2 mt-0">
                     <div className="flex items-center gap-3 text-xs">
                       {/* Sources Toggle */}
                       {msg.citations && msg.citations.length > 0 && (
@@ -349,16 +351,16 @@ export const ChatView: React.FC<ChatViewProps> = ({
 
                     {/* Sources Expanded Details */}
                     {expandedSources[msg.id] && msg.citations && (
-                      <div className="mt-1 flex flex-col gap-1.5 pl-3 border-l border-zinc-700">
+                      <div className="mt-1 flex flex-col gap-1.5 pl-3 border-l border-edge">
                         {msg.citations.map((c, i) => (
                           <div
                             key={i}
-                            className="text-xs bg-zinc-950 border border-zinc-800 p-2.5 rounded text-zinc-300 font-sans"
+                            className="text-xs bg-surface border border-white/[0.08] p-2.5 rounded-lg text-zinc-200 font-sans shadow-sm"
                           >
-                            <span className="font-semibold text-white mr-2 text-xs bg-zinc-900 border border-zinc-800 px-1.5 py-0.5 rounded font-mono">
+                            <span className="font-semibold text-white mr-2 text-xs bg-surface-elevated border border-white/[0.10] px-1.5 py-0.5 rounded font-mono">
                               {c.chunkId}
                             </span>
-                            {c.quote && <span className="text-zinc-400 text-xs">"{c.quote}"</span>}
+                            {c.quote && <span className="text-zinc-300 text-xs">"{c.quote}"</span>}
                           </div>
                         ))}
                       </div>
@@ -366,7 +368,7 @@ export const ChatView: React.FC<ChatViewProps> = ({
 
                     {/* Revision Feedback Box (if toggled) */}
                     {editingFeedbackId === msg.id && (
-                      <div className="bg-zinc-950 border border-zinc-800 rounded p-3 mt-1 flex flex-col gap-2.5">
+                      <div className="bg-surface border border-edge rounded-xl p-3.5 mt-1 flex flex-col gap-2.5 shadow-sm">
                         <div className="text-xs font-semibold text-zinc-300">
                           Request Policy Revision
                         </div>
@@ -375,7 +377,7 @@ export const ChatView: React.FC<ChatViewProps> = ({
                           onChange={(e) => setFeedbackText(e.target.value)}
                           placeholder="Specify the policy adjustment required..."
                           rows={2}
-                          className="w-full p-2.5 rounded bg-black border border-zinc-800 text-xs text-white placeholder-zinc-500 resize-none font-sans focus:border-zinc-500"
+                          className="w-full p-2.5 rounded-lg bg-surface-input border border-edge text-xs text-white placeholder-zinc-400 resize-none font-sans focus:border-zinc-400 focus:outline-none"
                         />
                         <div className="flex gap-2 justify-end">
                           <button
@@ -410,14 +412,13 @@ export const ChatView: React.FC<ChatViewProps> = ({
               <span>Querying policy manual vector indexes & synthesizing response...</span>
             </div>
           )}
-
-          <div ref={messagesEndRef} />
         </div>
       </div>
+    </div>
 
       {/* Bottom Fixed Input Box */}
-      <div className="p-4 bg-black border-t border-zinc-800 shrink-0">
-        <div className="max-w-3xl mx-auto relative">
+      <div className="p-4 bg-sidebar border-t border-zinc-700/80 shadow-[0_-12px_36px_rgba(0,0,0,0.8),0_-4px_12px_rgba(0,0,0,0.6)] z-20 relative shrink-0">
+        <div className="max-w-3xl mx-auto relative flex items-end rounded-xl border border-zinc-700 hover:border-zinc-500 bg-[#14161f] shadow-xl shadow-black/40 transition-all focus-within:border-zinc-400 focus-within:ring-2 focus-within:ring-white/10 overflow-hidden">
           <textarea
             ref={textareaRef}
             value={inputText}
@@ -426,19 +427,20 @@ export const ChatView: React.FC<ChatViewProps> = ({
             placeholder="Search policies or ask workplace guidelines..."
             rows={1}
             disabled={isLoading}
-            className="w-full min-h-[46px] max-h-[160px] py-3 pr-12 pl-3.5 rounded border border-zinc-800 bg-zinc-950 text-white text-xs placeholder-zinc-500 leading-relaxed resize-none focus:border-zinc-500 focus:outline-none font-sans"
+            className="w-full min-h-[48px] max-h-[160px] py-3.5 pr-14 pl-4 bg-transparent text-white text-sm placeholder-zinc-400 leading-relaxed resize-none focus:outline-none font-sans overflow-y-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           />
 
           <button
             onClick={handleSend}
             disabled={!inputText.trim() || isLoading}
-            className={`absolute right-2 bottom-2.5 w-7 h-7 rounded flex items-center justify-center transition-all ${
+            aria-label="Send message"
+            className={`absolute right-2.5 bottom-2.5 w-8 h-8 rounded-lg flex items-center justify-center transition-all ${
               inputText.trim() && !isLoading
-                ? "bg-white text-black hover:bg-zinc-200"
-                : "bg-zinc-900 text-zinc-600"
+                ? "bg-white text-black hover:bg-zinc-200 shadow cursor-pointer active:scale-95"
+                : "bg-white text-zinc-800 cursor-not-allowed border border-white/[0.05]"
             }`}
           >
-            <ArrowUp size={14} />
+            <ArrowUp size={15} />
           </button>
         </div>
       </div>

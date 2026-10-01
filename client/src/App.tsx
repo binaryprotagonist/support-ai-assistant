@@ -211,11 +211,17 @@ export function App() {
     }));
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollLeft = 0;
+    document.body.scrollLeft = 0;
+  }, [currentRoute]);
+
   const activeMessages = activeSessionId ? messagesMap[activeSessionId] || [] : [];
   const activeSession = sessions.find((s) => s.id === activeSessionId);
 
   return (
-    <div className="flex w-screen h-screen overflow-hidden bg-black text-white font-sans antialiased">
+    <div className="flex w-full h-full overflow-hidden bg-canvas text-zinc-100 font-sans antialiased">
       <Sidebar
         sessions={sessions}
         activeSessionId={activeSessionId}
